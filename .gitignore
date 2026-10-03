@@ -1,0 +1,10 @@
+.data/
+node_modules/
+*.log
+test-results/
+playwright-report/
+.env
+.env.*
+!.env.example
+dist/
+public/generated/

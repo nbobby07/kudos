@@ -1,0 +1,32 @@
+{
+  "name": "relay-handoffs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prestart": "npm run build:chat",
+    "start": "node server.js",
+    "build:chat": "esbuild frontend/assistant-thread.jsx --bundle --format=esm --platform=browser --jsx=automatic --minify --define:process.env.NODE_ENV=\"'production'\" --outfile=public/generated/assistant-thread.js",
+    "check": "node --check server.js && node --check backend-adapter.js && node --check public/app.js",
+    "typecheck": "npm --prefix backend run typecheck",
+    "test:fixture": "npm --prefix backend run test:fixture",
+    "demo:broken": "node fixtures/checkout-demo.mjs broken",
+    "demo:fixed": "node fixtures/checkout-demo.mjs fixed",
+    "demo:polished:broken": "PORT=4176 node fixtures/checkout-broken/server.js",
+    "demo:polished:fixed": "PORT=4175 node fixtures/checkout/server.js",
+    "test:demo:polished": "node --test fixtures/checkout-polished.test.mjs",
+    "test:demo": "node --test fixtures/checkout-demo.test.mjs",
+    "test": "npm --prefix backend test",
+    "test:adapter": "node --test tests/backend-adapter.test.mjs",
+    "test:e2e": "npm --prefix backend run test:e2e --",
+    "build": "npm --prefix backend run build"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "@assistant-ui/react": "^0.15.23",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}

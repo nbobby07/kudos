@@ -1,0 +1,44 @@
+:root {
+  --aryan-color: #a63846;
+  --aryan-soft: #fbeaed;
+  --noel-color: #23704e;
+  --noel-soft: #e6f4ea;
+  --kiran-color: #285faa;
+  --kiran-soft: #e8effc;
+}
+[data-author="Aryan"] { --author-color: var(--aryan-color); --author-soft: var(--aryan-soft); }
+[data-author="Noel"] { --author-color: var(--noel-color); --author-soft: var(--noel-soft); }
+[data-author="Kiran"] { --author-color: var(--kiran-color); --author-soft: var(--kiran-soft); }
+.avatar.aryan { background: var(--aryan-soft); color: var(--aryan-color); }
+.avatar.noel { background: var(--noel-soft); color: var(--noel-color); }
+.avatar.kiran { background: var(--kiran-soft); color: var(--kiran-color); }
+.mini-avatars > span:first-child { background: var(--aryan-soft); color: var(--aryan-color); }
+.mini-avatars > span:nth-child(2) { background: var(--noel-soft); color: var(--noel-color); }
+.mini-avatars > span:nth-child(3) { background: var(--kiran-soft); color: var(--kiran-color); }
+.plan-columns .daily-task[data-author] .task-checkbox { background: var(--author-soft); border-color: var(--author-color); }
+.plan-columns .daily-task[data-author] input:checked + .task-checkbox { background: var(--author-color); border-color: var(--author-color); color: #fff; }
+.daily-task[data-author] .task-source, [data-author] .chat-source { color: var(--author-color); }
+.plan-columns .task-copy > span.task-due { display: inline-flex; gap: 5px; align-items: center; padding: 4px 7px; border-radius: 4px; font-size: 9px; line-height: 1.8; background: var(--author-soft); color: var(--author-color); margin-top: 9px; }
+.task-due svg { width: 12px; height: 12px; }
+.day-event[data-author], .day-event[data-author].done { background: var(--author-soft); color: var(--author-color); border-color: var(--author-color); }
+.agenda-task[data-author] > time { background: var(--author-soft); color: var(--author-color); border-color: var(--author-soft); }
+.agenda-task[data-author] .task-source { color: var(--author-color); }
+.author-legend { display: flex; gap: 12px; align-items: center; }
+.author-legend > span { display: flex; align-items: center; gap: 5px; font-size: 9px; }
+.author-legend i { background: var(--author-color); }
+.month-controls { display: flex; align-items: center; gap: 7px; }
+.month-controls .icon-button { min-width: 29px; min-height: 32px; background: var(--subtle); }
+.month-controls svg { width: 14px; height: 14px; }
+.month-previous svg { transform: rotate(180deg); }
+.example-deadline, .actual-deadline { display: block; font-size: 8px; line-height: 1.8; color: var(--muted); margin-top: 8px; }
+.actual-deadline { color: var(--author-color); }
+.task-deadline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.task-deadline-fields label { min-width: 0; }
+.task-deadline-fields input { min-width: 0; }
+dialog .deadline-hint { font-size: 10px; margin: 5px 0 22px; }
+@media (max-width: 740px) {
+  .month-header { flex-wrap: wrap; }
+  .author-legend { gap: 9px; }
+  .author-legend > span { font-size: 8px; }
+}
+@media (max-width: 420px) { .task-deadline-fields { grid-template-columns: 1fr; gap: 0; } }

@@ -1,0 +1,21 @@
+{
+  "projectId": "checkout-fixture",
+  "requirementId": "declined-payment-retry",
+  "title": "Declined payment shows an error and permits retry",
+  "company": "Paper / Field",
+  "milestone": "First online launch of the Everyday Notebook",
+  "owner": { "name": "Aryan", "role": "Storefront Engineer" },
+  "recipient": { "name": "Noel", "role": "Commerce Engineer" },
+  "reviewer": { "name": "Kiran", "role": "Product & Launch Lead" },
+  "downstreamDependency": "Noel needs Aryan's checkout to display the PAYMENT_DECLINED response and allow retry before completing commerce integration. Kiran's launch sign-off depends on that integrated checkout being ready.",
+  "acceptanceCriteria": [
+    "A declined POST /checkout displays Payment declined. Please try again.",
+    "The user can retry and issue another POST /checkout."
+  ],
+  "expectedOutcomes": {
+    "broken": "failed",
+    "fixed": "passed"
+  },
+  "handoffRule": "Deliver only a completed passed result for the submitted revision; failed, unverified, or error results do not authorize delivery.",
+  "scopeNote": "This is display metadata, not a submission API payload. Mobile layout, success payments, and duplicate-order prevention are outside this verification requirement."
+}

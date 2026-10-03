@@ -1,0 +1,119 @@
+/* Two primary groups; teammate context is revealed only when needed. */
+.day-view .sidebar-note, .day-view .page-heading > .eyebrow { display: none; }
+.day-view .sidebar-bottom { margin-top: auto; }
+.day-view main { max-width: 1300px; padding-top: 47px; }
+.day-view .page-heading { margin-bottom: 42px; }
+.day-view .page-heading h1 { font-size: 32px; font-weight: 600; letter-spacing: -1.2px; }
+.day-view .page-heading p { max-width: 560px; font-size: 13px; line-height: 1.9; }
+.day-view .page-heading .button { font-weight: 500; }
+.plan-columns { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 30px; align-items: start; }
+.plan-columns > .panel { border-color: var(--line); border-radius: 12px; box-shadow: none; }
+.plan-columns .daily-panel-heading { padding: 30px 28px 22px; align-items: start; }
+.plan-columns .daily-panel-heading h2 { font-size: 23px; letter-spacing: -.8px; font-weight: 600; line-height: 1.4; margin-top: 10px; }
+.plan-columns .daily-panel-heading .eyebrow { color: var(--quiet); font-size: 9px; letter-spacing: 1.2px; }
+.plan-columns .daily-panel-heading > svg { color: var(--brand-ink); width: 21px; height: 21px; margin-top: 30px; }
+.plan-columns .task-count { margin-top: 30px; border: 0; padding: 4px 0; background: none; color: var(--muted); font-size: 10px; }
+.plan-columns .daily-progress { height: 2px; margin: 0 28px 5px; }
+.plan-columns .task-list { padding: 0 28px; }
+.plan-columns .daily-task { gap: 14px; padding: 20px 0; align-items: start; }
+.plan-columns .daily-task input { top: 4px; transform: none; }
+.task-toggle { position: relative; display: flex; align-items: start; gap: 14px; flex: 1; min-width: 0; cursor: pointer; }
+.task-delete { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; padding: 8px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); }
+.task-delete svg { width: 17px; height: 17px; }
+.task-delete:hover:not(:disabled) { background: var(--danger-soft); color: var(--danger); }
+.tasks-empty { padding: 24px 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+@media (max-width: 740px) {
+  .plan-columns .daily-task { display: grid; grid-template-columns: minmax(0, 1fr) 36px; gap: 8px; }
+  .task-toggle { grid-column: 1; grid-row: 1; }
+  .task-delete { grid-column: 2; grid-row: 1; }
+  .daily-task .task-pr-link { grid-column: 1 / -1; grid-row: 2; margin-left: 35px; }
+}
+.plan-columns .task-checkbox { width: 21px; height: 21px; margin-top: 4px; }
+.plan-columns .task-copy > strong { font-size: 13px; line-height: 1.8; font-weight: 500; }
+.plan-columns .task-copy > span:not(.task-source) { font-size: 11px; line-height: 1.85; margin-top: 6px; }
+.plan-columns .task-copy > .task-source { display: inline-flex; padding: 0; margin: 5px 0 0; border: 0; background: none; color: var(--brand-ink); font-size: 9px; }
+.plan-completion { display: flex; align-items: center; gap: 9px; padding: 19px 28px; background: var(--bg); border-top: 1px solid var(--line); font-size: 10px; line-height: 1.8; color: var(--muted); }
+.plan-completion svg { width: 14px; height: 14px; }
+.new-task-button { display: flex; align-items: center; gap: 12px; width: calc(100% - 56px); margin: 0 28px 19px; padding: 13px 0; background: none; border: 0; border-top: 1px dashed var(--line); color: var(--brand-ink); font-size: 12px; font-weight: 500; text-align: left; }
+.new-task-button > span { display: grid; place-items: center; width: 21px; height: 21px; border: 1px solid var(--line); border-radius: 5px; font-size: 16px; font-weight: 400; background: var(--subtle); }
+.new-task-button:hover > span { background: var(--brand-soft); }
+@media (max-width: 1180px) { .new-task-button { width: calc(100% - 44px); margin-left: 22px; margin-right: 22px; } }
+.plan-columns .recommendations { background: var(--subtle); }
+.plan-columns .recommendations-intro { padding: 0 28px 5px; font-size: 12px; line-height: 1.8; }
+.plan-columns .suggestion-list { padding: 0 28px; }
+.plan-columns .suggestion { padding: 27px 0; display: block; }
+.plan-columns .suggestion h3 { font-family: 'Manrope', var(--font); font-size: 16px; line-height: 1.65; letter-spacing: -.4px; font-weight: 600; }
+.plan-columns .suggestion p { font-size: 12px; line-height: 1.9; margin-top: 9px; }
+.plan-columns .suggestion-reason { margin-top: 11px; font-size: 11px; line-height: 1.85; }
+.plan-columns .suggestion .button { margin: 19px 0 0; min-height: 36px; padding: 8px 12px; font-size: 11px; font-weight: 500; background: var(--surface); }
+.plan-columns .recommendation-disclaimer { padding: 17px 28px; background: none; font-size: 10px; }
+.plan-columns .suggestions-empty { padding: 40px 0 55px; }
+.suggestions-empty > svg { width: 24px; height: 24px; color: var(--quiet); margin-bottom: 15px; }
+.suggestions-empty h3 { font-size: 17px; font-weight: 500; letter-spacing: -.4px; line-height: 1.7; }
+.suggestions-empty p { margin-top: 10px; font-size: 12px; line-height: 1.8; }
+.team-dock { margin-top: 36px; padding: 27px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; gap: 25px; align-items: center; }
+.dock-heading { flex: 1; }
+.dock-heading h2 { font-size: 15px; font-weight: 600; letter-spacing: -.3px; }
+.dock-heading p { font-size: 10px; color: var(--muted); margin-top: 7px; line-height: 1.8; }
+.dock-members { display: flex; gap: 28px; }
+.dock-member { display: flex; align-items: center; gap: 13px; }
+.teammate-profile { position: relative; }
+.teammate-profile > summary { list-style: none; display: flex; align-items: center; gap: 9px; padding: 5px 0; cursor: pointer; border-radius: 6px; }
+.teammate-profile > summary::-webkit-details-marker { display: none; }
+.teammate-profile > summary:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 5px; }
+.teammate-profile .avatar { width: 35px; height: 35px; border: 0; font-size: 12px; flex-shrink: 0; }
+.member-name > strong { display: block; font-size: 12px; font-weight: 500; }
+.member-name > span { display: block; margin-top: 5px; font-size: 9px; color: var(--muted); }
+.member-expand { display: none; }
+.dock-member .send-task-button { width: auto; min-height: 34px; font-size: 10px; padding: 8px 10px; }
+.dock-member .send-task-button svg { width: 12px; height: 12px; }
+.teammate-profile > .rail-card { position: absolute; z-index: 5; width: 290px; bottom: calc(100% + 9px); left: 0; margin: 0; padding: 23px; box-shadow: 0 12px 36px #2927351a; }
+.teammate-profile > .rail-card:after { content: ''; position: absolute; bottom: -12px; left: 0; right: 0; height: 12px; }
+.dock-member:last-child .teammate-profile > .rail-card { left: auto; right: 0; }
+.profile-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.profile-heading h3 { font-size: 15px; font-weight: 600; }
+.profile-heading > span { font-size: 10px; color: var(--muted); }
+.teammate-profile .rail-recommendation { margin-top: 19px; padding-bottom: 16px; }
+.teammate-profile .rail-context { margin: 17px 0 0; }
+.workspace-footnote { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-top: 19px; font-size: 9px; color: var(--muted); line-height: 1.8; }
+.workspace-footnote .text-button { padding: 0; font-size: 10px; white-space: nowrap; }
+.day-view footer { padding-top: 26px; }
+@media (max-width: 1180px) {
+  .plan-columns { gap: 22px; }
+  .plan-columns .daily-panel-heading { padding: 25px 22px 20px; flex-wrap: wrap; gap: 7px; }
+  .plan-columns .daily-panel-heading h2 { font-size: 21px; }
+  .plan-columns .task-count { margin-top: 5px; }
+  .plan-columns .task-list, .plan-columns .suggestion-list { padding: 0 22px; }
+  .plan-columns .daily-progress { margin-left: 22px; margin-right: 22px; }
+  .plan-columns .recommendations-intro { padding-left: 22px; padding-right: 22px; }
+  .plan-completion, .plan-columns .recommendation-disclaimer { padding-left: 22px; padding-right: 22px; }
+  .team-dock { flex-wrap: wrap; }
+  .dock-heading { flex-basis: 100%; }
+  .dock-members { gap: 38px; }
+}
+@media (max-width: 740px) {
+  .day-view main { padding-top: 30px; }
+  .day-view .page-heading { margin-bottom: 29px; }
+  .day-view .page-heading h1 { font-size: 26px; }
+  .day-view .page-heading p { font-size: 12px; }
+  .day-view .page-heading .heading-row { gap: 16px; }
+  .plan-columns { grid-template-columns: 1fr; gap: 24px; }
+  .plan-columns .daily-panel-heading { padding-top: 25px; }
+  .plan-columns .daily-panel-heading h2 { font-size: 22px; }
+  .plan-columns .task-count { margin-top: 29px; }
+  .plan-columns .task-copy > strong { font-size: 13px; }
+  .team-dock { margin-top: 29px; padding: 23px 0; gap: 21px; }
+  .dock-members { flex-direction: column; width: 100%; gap: 18px; }
+  .dock-member { justify-content: space-between; }
+  .teammate-profile > .rail-card, .dock-member:last-child .teammate-profile > .rail-card { width: min(290px, calc(100vw - 103px)); left: 0; right: auto; }
+  .dock-member .send-task-button { min-height: 40px; }
+  .teammate-profile > summary { min-height: 44px; }
+  .member-expand { display: block; color: var(--quiet); margin-left: 5px; }
+  .member-expand svg { width: 13px; height: 13px; }
+  .workspace-footnote { align-items: start; flex-direction: column; gap: 12px; }
+}
+@media (max-width: 420px) {
+  .plan-columns .daily-panel-heading { flex-wrap: wrap; }
+  .plan-columns .task-count { margin-top: 5px; }
+  .plan-columns .daily-panel-heading > svg { margin-top: 28px; }
+}

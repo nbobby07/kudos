@@ -1,0 +1,30 @@
+{
+  "projectId": "checkout-fixture",
+  "repositoryPath": "fixtures/checkout",
+  "revisions": {
+    "broken": "05d773013cc4d9beeeba8cea513fc108f659cd28",
+    "fixed": "e0c69bf8dba700d5a8e5a48ebbc504b7064a3575"
+  },
+  "setupCommand": "npm run setup",
+  "startCommand": "node server.js",
+  "host": "127.0.0.1",
+  "port": 3000,
+  "readyPath": "/",
+  "declinedPayment": {
+    "method": "POST",
+    "path": "/checkout",
+    "status": 402,
+    "body": {
+      "code": "PAYMENT_DECLINED",
+      "message": "Payment declined. Please try again."
+    }
+  },
+  "selectors": {
+    "checkout": "[data-testid=\"checkout\"]",
+    "cart": "[data-testid=\"cart\"]",
+    "submit": "[data-testid=\"submit\"]",
+    "loading": "[data-testid=\"loading\"]",
+    "error": "[data-testid=\"error\"]",
+    "retry": "[data-testid=\"retry\"]"
+  }
+}

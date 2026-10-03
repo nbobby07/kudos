@@ -1,0 +1,9 @@
+{
+  "name": "checkout-broken-fixture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node --check server.js",
+    "start": "node server.js"
+  }
+}

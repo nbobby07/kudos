@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <title>Checkout | Paper / Field</title>
+  <style>
+    :root { color-scheme: light; --paper: #f8f7f2; --ink: #252d27; --muted: #656b61; --green: #294c3c; --line: #dedfd5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.5; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid #638873; outline-offset: 4px; }
+    .shell { max-width: 1180px; margin: auto; padding: 0 48px; }
+    .masthead { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 31px 0 27px; border-bottom: 1px solid var(--line); }
+    .wordmark { font-size: 22px; font-weight: 700; letter-spacing: .11em; line-height: 1; }
+    a.wordmark { color: inherit; text-decoration: none; }
+    .wordmark span { color: #8d978b; font-weight: 400; padding: 0 4px; }
+    .masthead-note { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .88fr); gap: 86px; padding: 48px 0 64px; }
+    .eyebrow { margin: 0 0 15px; color: var(--green); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .17em; }
+    h1, h2, p { margin-top: 0; }
+    h1 { font: 400 48px/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.035em; margin-bottom: 14px; }
+    .intro { color: var(--muted); margin-bottom: 26px; }
+    .sandbox { display: flex; gap: 12px; align-items: flex-start; background: #eaf0e7; border: 1px solid #d9e2d4; padding: 15px 17px; margin-bottom: 29px; color: #3c5240; font-size: 12px; }
+    .sandbox svg { flex-shrink: 0; margin-top: 2px; }
+    .sandbox strong { display: block; margin-bottom: 3px; font-size: 12px; }
+    .sandbox p { margin: 0; }
+    fieldset { padding: 0; margin: 0; border: 0; min-width: 0; }
+    legend { width: 100%; padding: 0 0 16px; font-size: 16px; font-weight: 600; }
+    .section-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid #cbd1c5; border-radius: 50%; margin-right: 9px; color: var(--green); font-size: 11px; font-weight: 400; }
+    label { display: block; margin-bottom: 7px; font-size: 12px; font-weight: 600; }
+    input { display: block; width: 100%; min-width: 0; height: 46px; padding: 11px 13px; border: 1px solid #cdd1c7; border-radius: 4px; background: #fffefa; color: #424b40; }
+    input[readonly] { cursor: default; }
+    input:disabled { opacity: .6; }
+    .field { margin-bottom: 16px; }
+    .field-note { color: var(--muted); font-size: 11px; margin: 7px 0 0; }
+    .payment-section { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 25px; }
+    .payment-method { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; margin-bottom: 20px; border: 1px solid #6e8772; border-radius: 4px; background: #f0f3ec; }
+    .method-label { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 600; }
+    .radio-dot { width: 14px; height: 14px; border: 4px solid var(--green); border-radius: 50%; background: var(--paper); }
+    .test-tag { font-size: 9px; letter-spacing: .1em; border: 1px solid #bdc9b9; padding: 2px 6px; border-radius: 3px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card-field { position: relative; }
+    .card-field input { padding-right: 47px; letter-spacing: .045em; }
+    .card-field svg { position: absolute; right: 14px; top: 14px; color: #727b6f; pointer-events: none; }
+    .pay-button { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px 20px; border: 1px solid var(--green); border-radius: 4px; background: var(--green); color: white; font-weight: 600; margin-top: 7px; transition: background .15s; }
+    .pay-button:hover:not(:disabled) { background: #1a392b; }
+    button:disabled { cursor: wait; opacity: .6; }
+    .payment-note { text-align: center; color: var(--muted); font-size: 11px; margin: 12px 0 0; }
+    .loading { color: var(--green); margin: 16px 0 0; font-size: 13px; }
+    .loading::before { content: ''; display: inline-block; width: 12px; height: 12px; margin-right: 9px; border: 2px solid #c4d0c0; border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error { color: #8c3027; border-left: 3px solid #a0473b; background: #f7e9e3; padding: 13px 15px; margin: 18px 0 12px; font-size: 13px; }
+    .retry { color: var(--green); background: transparent; border: 1px solid #879b84; border-radius: 4px; padding: 10px 16px; font-weight: 600; }
+    .retry:hover:not(:disabled) { background: #eaf0e7; }
+    .summary { align-self: start; margin-top: 5px; border: 1px solid #dedfd2; border-radius: 6px; background: #f0f0e7; overflow: hidden; }
+    .summary-top { display: flex; align-items: baseline; justify-content: space-between; padding: 24px 27px 0; gap: 12px; }
+    .summary h2 { font: 400 23px/1.2 Georgia, 'Times New Roman', serif; margin-bottom: 0; letter-spacing: -.025em; }
+    .item-count { font-size: 11px; color: var(--muted); }
+    .product-art { position: relative; margin: 17px 20px 0; background: radial-gradient(ellipse at 50% 55%, #e1e4d7, #eeeee4 70%); }
+    .product-art svg { display: block; width: 100%; height: auto; }
+    .edition { position: absolute; left: 7px; bottom: 17px; writing-mode: vertical-rl; transform: rotate(180deg); color: #737c6a; letter-spacing: .18em; font-size: 9px; text-transform: uppercase; }
+    .summary-details { padding: 4px 27px 26px; }
+    .product-line { display: flex; justify-content: space-between; align-items: baseline; gap: 15px; }
+    .product-name { font: 400 21px/1.3 Georgia, 'Times New Roman', serif; margin-bottom: 5px; }
+    .price { font-size: 14px; white-space: nowrap; }
+    .product-description { color: var(--muted); font-size: 12px; margin-bottom: 15px; }
+    .product-meta { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+    .swatch { width: 11px; height: 11px; border-radius: 50%; background: #365341; border: 1px solid #25412f; }
+    .quantity { margin-left: auto; }
+    .totals { margin: 23px 0 0; border-top: 1px solid #d4d7c9; padding-top: 18px; }
+    .totals div { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 11px; font-size: 12px; }
+    .totals dt { color: var(--muted); }
+    .totals dd { margin: 0; }
+    .totals .total { border-top: 1px solid #d4d7c9; padding-top: 17px; margin: 18px 0 0; font-size: 16px; font-weight: 600; }
+    .total dt { color: var(--ink); }
+    .currency { color: var(--muted); font-size: 10px; font-weight: 400; margin-right: 7px; }
+    .summary-footer { border-top: 1px solid #d9ddcf; padding: 18px 27px; display: flex; gap: 12px; align-items: center; }
+    .summary-footer svg { flex-shrink: 0; color: #657d58; }
+    .summary-footer p { margin: 0; font: italic 15px/1.5 Georgia, 'Times New Roman', serif; color: #5e6957; }
+    .footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding: 20px 0 25px; color: var(--muted); font-size: 10px; }
+    .footer-brand { letter-spacing: .12em; text-transform: uppercase; }
+    @media (max-width: 900px) { .shell { padding: 0 30px; } .layout { gap: 36px; } .summary-top, .summary-details, .summary-footer { padding-left: 20px; padding-right: 20px; } }
+    @media (max-width: 650px) { .shell { padding: 0 22px; } .masthead { padding: 24px 0; } .wordmark { font-size: 18px; } .masthead-note { font-size: 9px; letter-spacing: .06em; } .layout { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 32px 0; } h1 { font-size: 41px; } .summary { margin-top: 0; } .product-art { max-width: 350px; margin-left: auto; margin-right: auto; } .footer { flex-wrap: wrap; } }
+    @media (prefers-reduced-motion: reduce) { .loading::before { animation: none; } .pay-button { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="shell" data-testid="checkout">
+    <header class="masthead">
+      <a class="wordmark" href="/home" aria-label="Paper / Field">PAPER <span>/</span> FIELD</a>
+      <div class="masthead-note">Thoughtfully made stationery</div>
+    </header>
+    <div class="layout">
+      <section aria-labelledby="checkout-title">
+        <p class="eyebrow">One good notebook. Endless possibilities.</p>
+        <h1 id="checkout-title">Checkout</h1>
+        <p class="intro">From our little studio to your everyday.</p>
+        <aside class="sandbox" id="sandbox-note" aria-label="Sandbox payment notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 7v6m0 3v1"/></svg>
+          <div><strong>This is a demo checkout</strong><p>Use only the prefilled test details. No real card information or charges. This sandbox payment will be declined.</p></div>
+        </aside>
+        <form aria-describedby="sandbox-note" novalidate>
+          <fieldset id="demo-fields">
+            <legend><span class="section-number" aria-hidden="true">1</span>Contact details</legend>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" type="email" value="alex@example.com" readonly autocomplete="off" aria-describedby="email-note">
+              <p class="field-note" id="email-note">Demo contact only. No emails will be sent.</p>
+            </div>
+            <div class="payment-section">
+              <h2 style="font-size:16px; font-weight:600; margin-bottom:16px"><span class="section-number" aria-hidden="true">2</span>Payment details</h2>
+              <div class="payment-method"><span class="method-label"><span class="radio-dot" aria-hidden="true"></span>Demo card</span><span class="test-tag">TEST ONLY</span></div>
+              <div class="field">
+                <label for="card-name">Name on test card</label>
+                <input id="card-name" type="text" value="Alex Morgan" readonly autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="card-number">Test card number</label>
+                <div class="card-field">
+                  <input id="card-number" type="text" value="4242 4242 4242 4242" readonly autocomplete="off" aria-describedby="sandbox-note">
+                  <svg width="22" height="18" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1" y="2" width="22" height="16" rx="3"/><path d="M1 7h22M5 13h5"/></svg>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label for="expiry">Expiry date</label><input id="expiry" type="text" value="12 / 30" readonly autocomplete="off"></div>
+                <div class="field"><label for="cvc">Test CVC</label><input id="cvc" type="text" value="123" readonly autocomplete="off"></div>
+              </div>
+            </div>
+          </fieldset>
+          <button class="pay-button" data-testid="submit" type="submit"><span>Pay $12.00</span><span aria-hidden="true">&rarr;</span></button>
+          <p class="payment-note">Test payment only. You won't be charged.</p>
+          <p class="loading" data-testid="loading" role="status" hidden>Processing payment...</p>
+          <p class="error" data-testid="error" role="alert" tabindex="-1" hidden></p>
+          <button class="retry" data-testid="retry" type="button" hidden>Retry payment</button>
+        </form>
+      </section>
+      <aside class="summary" data-testid="cart" aria-labelledby="summary-title">
+        <div class="summary-top"><h2 id="summary-title">Your order</h2><span class="item-count">1 item</span></div>
+        <div class="product-art">
+          <span class="edition" aria-hidden="true">The everyday collection / No. 01</span>
+          <svg viewBox="0 0 400 310" role="img" aria-labelledby="notebook-title">
+            <title id="notebook-title">Forest green Paper / Field notebook with cream pages and a cloth cover</title>
+            <defs>
+              <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#456650"/><stop offset=".55" stop-color="#355440"/><stop offset="1" stop-color="#294634"/></linearGradient>
+              <linearGradient id="pages" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d5d0b8"/><stop offset=".12" stop-color="#f2efde"/><stop offset="1" stop-color="#e4dfc9"/></linearGradient>
+              <filter id="shadow" x="-40%" y="-30%" width="180%" height="180%"><feDropShadow dx="9" dy="15" stdDeviation="11" flood-color="#263327" flood-opacity=".22"/></filter>
+              <pattern id="cloth" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M0 0h3M0 0v3" stroke="#b7c1a3" stroke-width=".3" opacity=".16"/></pattern>
+            </defs>
+            <ellipse cx="213" cy="266" rx="106" ry="14" fill="#c5caba" opacity=".35"/>
+            <g transform="translate(112 29) rotate(-11 90 118)" filter="url(#shadow)">
+              <path d="M8 11h169q9 0 9 9v222q0 8-9 8H8z" fill="#263e2e"/>
+              <path d="M15 17h161q7 0 7 7v215H15z" fill="url(#pages)"/>
+              <path d="M20 231h161m-161 3h161m-161 3h161m-161 3h159" stroke="#b9b69f" stroke-width=".6"/>
+              <rect width="181" height="234" rx="5" fill="url(#cover)"/>
+              <rect width="181" height="234" rx="5" fill="url(#cloth)"/>
+              <path d="M12 1v231" stroke="#203f2c" stroke-width="1.4" opacity=".6"/>
+              <path d="M15 1v231M2 4v225" stroke="#789071" stroke-width=".8" opacity=".4"/>
+              <rect x="148" y="0" width="5" height="234" fill="#203a2a" opacity=".7"/>
+              <path d="M125 242v24l6-5 5 5v-24" fill="#a19c72"/>
+              <g fill="#dddcc1" text-anchor="middle">
+                <text x="83" y="80" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing="2">PAPER / FIELD</text>
+                <path d="M69 95h28" stroke="#b6be9f" stroke-width=".7"/>
+                <text x="83" y="120" font-family="Georgia, serif" font-size="19">Notes</text>
+                <text x="83" y="139" font-family="Arial, Helvetica, sans-serif" font-size="5.5" letter-spacing="1.6">FOR THE EVERYDAY</text>
+                <text x="83" y="204" font-family="Arial, Helvetica, sans-serif" font-size="6" letter-spacing="1.5">NO. 01</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="summary-details">
+          <div class="product-line"><h3 class="product-name">The Everyday Notebook</h3><span class="price">$12.00</span></div>
+          <p class="product-description">Our first online collection.<br>A5 &middot; 160 ruled pages &middot; Clothbound</p>
+          <div class="product-meta"><span class="swatch" aria-hidden="true"></span><span>Forest green</span><span class="quantity">Qty 1</span></div>
+          <dl class="totals">
+            <div><dt>Subtotal</dt><dd>$12.00</dd></div>
+            <div><dt>Shipping</dt><dd>Free</dd></div>
+            <div><dt>Tax</dt><dd>$0.00</dd></div>
+            <div class="total"><dt>Total</dt><dd><span class="currency">USD</span>$12.00</dd></div>
+          </dl>
+        </div>
+        <div class="summary-footer">
+          <svg width="25" height="32" viewBox="0 0 28 36" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M14 33V15m0 10C3 26 2 17 3 12c8 0 12 5 11 13Zm0-6C13 8 20 4 25 3c2 9-3 15-11 16Z"/><path d="m14 25-7-8m7 2 7-10"/></svg>
+          <p>For slow mornings<br>and thoughts worth keeping.</p>
+        </div>
+      </aside>
+    </div>
+    <footer class="footer"><span class="footer-brand">Paper / Field &copy; 2026</span><span>A demo store. No orders are fulfilled.</span></footer>
+  </main>
+  <script type="module">
+    const checkout = document.querySelector('[data-testid="checkout"]');
+    const form = checkout.querySelector('form');
+    const submit = checkout.querySelector('[data-testid="submit"]');
+    const loading = checkout.querySelector('[data-testid="loading"]');
+    const error = checkout.querySelector('[data-testid="error"]');
+    const retry = checkout.querySelector('[data-testid="retry"]');
+    const fields = checkout.querySelector('#demo-fields');
+
+    async function pay(event) {
+      event.preventDefault();
+      if (submit.disabled) return;
+      submit.disabled = true;
+      retry.disabled = true;
+      fields.disabled = true;
+      form.setAttribute('aria-busy', 'true');
+      error.hidden = true;
+      loading.hidden = false;
+      try {
+        const response = await fetch('/checkout', { method: 'POST' });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message);
+      } catch (failure) {
+        // Intentional demo regression: a declined payment blanks the checkout.
+        checkout.replaceChildren();
+      } finally {
+        loading.hidden = true;
+        submit.disabled = false;
+        retry.disabled = false;
+        fields.disabled = false;
+        form.setAttribute('aria-busy', 'false');
+        if (!error.hidden) error.focus();
+      }
+    }
+
+    form.addEventListener('submit', pay);
+    retry.addEventListener('click', pay);
+  </script>
+</body>
+</html>
